@@ -503,8 +503,6 @@ const EnhancedDeRegistrationStep1 = withFormik({
 
   handleSubmit: (values, bag) => {
     bag.setSubmitting(false);
-    console.log('I am called step1');
-    //bag.props.callServer(values);
     bag.props.callServer(prepareAPIRequestStep1(values));
   },
 
@@ -536,7 +534,6 @@ const EnhancedDeRegistrationStep2 = withFormik({
   // Custom sync validation
   validate: values => {
     let errors = {};
-    console.log(values.verified_devices);
     if (!values.verified_devices || values.verified_devices.length === 0) {
       errors.verified_devices = 'Please check at least one device'
     }
@@ -545,7 +542,6 @@ const EnhancedDeRegistrationStep2 = withFormik({
 
   handleSubmit: (values, bag) => {
     bag.setSubmitting(false);
-    console.log('I am called step2');
     bag.props.callServer(prepareAPIRequestStep2(values));
   },
 
@@ -598,7 +594,6 @@ const EnhancedDeRegistrationStep3 = withFormik({
 
   handleSubmit: (values, bag) => {
     bag.setSubmitting(false);
-    console.log('I am called step3');
     bag.props.callServer(prepareAPIRequestStep3(values));
   },
 
@@ -655,8 +650,6 @@ const EnhancedDeRegistrationStep4 = withFormik({
 
   handleSubmit: (values, bag) => {
     bag.setSubmitting(false);
-    console.log('I am called step4');
-    //bag.props.callServer(values);
     bag.props.callServer(prepareAPIRequestStep4(values));
   },
 
@@ -666,15 +659,6 @@ const EnhancedDeRegistrationStep4 = withFormik({
 function prepareAPIRequestStep4(values) {
   // Validate Values before sending
   const formData = new FormData();
-  // if(values.device_count) {
-  //   formData.append('device_count', values.device_count);
-  // }
-  // if(values.filename) {
-  //   formData.append('file', values.filename);
-  // }
-  // if(values.reason) {
-  //   formData.append('reason', values.reason);
-  // }
 
   formData.append('user_id', getUserInfo().sub);
   formData.append('user_name', getUserInfo().preferred_username);
@@ -809,7 +793,6 @@ class DeRegistration extends Component {
     this.setState({stepReady: false});
     instance.post(`/deregistration`, formdata, config)
       .then((response) => {
-        console.log(response.data);
         if (response.data.id) {
           //toast.success('Your De-Registration Request has been registered successfully!');
         }
@@ -872,7 +855,6 @@ class DeRegistration extends Component {
             state: {details: statusDetails}
           });
         }
-        console.log(response.data)
       })
       .catch((error) => {
         this.setState({stepReady: true});

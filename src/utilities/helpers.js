@@ -317,7 +317,7 @@ export function errors(context, error, noToastr = false) {
     } else {
       if (error.response.status === 400) {
         toast.error(error.response.data.message);
-        toast.error(error.response.data.error[0]);
+        //toast.error(error.response.data.error[0]);
       } else if (error.response.status === 401) {
         toast.error('Your session has been expired, please wait');
         setTimeout(() => {

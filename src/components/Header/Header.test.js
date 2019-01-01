@@ -1,29 +1,48 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
 import Header from "./Header";
- const userDetails = {
+
+const userDetails = {
   preferred_username: "User"
 }
- describe('Header component',()=>{
+describe('Header component', () => {
   /**
    * Test if header renders successfully
    */
-  test('If header renders',()=>{
+  test('If header renders', () => {
     const wrapper = shallow(<Header/>);
     expect(wrapper.exists()).toBe(true);
   })
   /**
    * Test if header consists of class
    */
-  test('If header has class',()=>{
+  test('If header has class', () => {
     const wrapper = shallow(<Header/>);
     expect(wrapper.find('.app-header').length).toEqual(1)
   })
   /**
    * Test if header consists of ul
    */
-  test('If header has navbar-toggler-icon',()=>{
+  test('If header has navbar-toggler-icon', () => {
     const wrapper = shallow(<Header/>);
     expect(wrapper.contains(<span className="navbar-toggler-icon"></span>)).toBe(true);
+  })
+
+  test('should toggle sidebar', () => {
+    const wrapper = shallow(<Header/>);
+    wrapper.find('NavbarToggler').at(1).simulate('click', {
+      preventDefault: () => {
+      }
+    })
+    expect(document.body.classList.contains('sidebar-hidden'))
+  })
+
+  test('should toggle mobile sidebar', () => {
+    const wrapper = shallow(<Header/>);
+    wrapper.find('NavbarToggler').at(0).simulate('click', {
+      preventDefault: () => {
+      }
+    })
+    expect(document.body.classList.contains('sidebar-mobile-show'))
   })
 })

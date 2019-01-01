@@ -57,7 +57,7 @@ const Steps = ({
       {
         (t) => (
           <div>
-            <div className="steps-status space-between no-previous">
+            <div id="stepHeader" className="steps-status space-between no-previous">
               <div>
                 <h4>{t('requestId')}: <span className="text-primary">{id}</span> &nbsp;&nbsp;
                   <small>{viewType === 'registration' ?

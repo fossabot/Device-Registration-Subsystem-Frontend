@@ -47,7 +47,7 @@ const DeviceDescription = ({
               </tr>) ||
               step2Data.user_device_description.map((userDevice, i) => {
                 if (isNil(userDevice)) {
-                  return '';
+                  return <tr key={i}></tr>;
                 } else {
                   return <tr key={i}>
                     <td data-label={i18n.t('brand')}>{userDevice.brand || 'N/A'}</td>
@@ -83,7 +83,7 @@ const DeviceDescription = ({
               </tr>) ||
               step2Data.gsma_device_description.map((gsmaDevice, i) => {
                 if (isNil(gsmaDevice)) {
-                  return '';
+                  return <tr key={i}></tr>;
                 } else {
                   return <tr key={i}>
                     <td data-label={i18n.t('brand')}>{gsmaDevice.brand || 'N/A'}</td>

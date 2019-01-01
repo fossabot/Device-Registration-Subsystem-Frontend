@@ -16,19 +16,9 @@ class Header extends Component {
     document.body.classList.toggle('sidebar-hidden');
   }
 
-  sidebarMinimize(e) {
-    e.preventDefault();
-    document.body.classList.toggle('sidebar-minimized');
-  }
-
   mobileSidebarToggle(e) {
     e.preventDefault();
     document.body.classList.toggle('sidebar-mobile-show');
-  }
-
-  asideToggle(e) {
-    e.preventDefault();
-    document.body.classList.toggle('aside-menu-hidden');
   }
 
   render() {
@@ -45,7 +35,6 @@ class Header extends Component {
           <span className="navbar-toggler-icon"></span>
         </NavbarToggler>
         <Nav className="ml-auto" navbar>
-          {/*<HeaderLanguageDropdown {...this.props} switchLanguage={this.props.switchLanguage} />*/}
           {getUserRole(this.props.resources) !== '' && getUserRole(this.props.resources) !== AUTHORITY &&
           <HeaderNotifyDropdown {...this.props}/>
           }

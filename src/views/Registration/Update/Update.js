@@ -788,7 +788,6 @@ const EnhancedUpdateRegistrationStep1 = withFormik({
 
   handleSubmit: (values, bag) => {
     bag.setSubmitting(false);
-    console.log('I am called step1');
     //bag.props.callServer(values);
     bag.props.callServer(prepareAPIRequestStep1(values));
   },
@@ -875,7 +874,6 @@ const EnhancedUpdateRegistrationStep2 = withFormik({
 
   handleSubmit: (values, bag) => {
     bag.setSubmitting(false);
-    console.log('I am called step2');
     bag.props.callServer(prepareAPIRequestStep2(values));
   },
 
@@ -957,7 +955,6 @@ const EnhancedUpdateRegistrationStep3 = withFormik({
 
   handleSubmit: (values, bag) => {
     bag.setSubmitting(false);
-    console.log('I am called step3');
     bag.props.callServer(prepareAPIRequestStep3(values));
   },
 
@@ -1038,7 +1035,6 @@ class Update extends Component {
 
   jumpToNextStep() {
     const {step} = this.state;
-    console.log(step);
     if ((step + 1) === 2) {
       this.updateTokenHOC(this.getStep2DataFromServer);
     } else if ((step + 1) === 3) {

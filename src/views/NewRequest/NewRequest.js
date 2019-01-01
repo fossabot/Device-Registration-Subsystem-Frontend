@@ -673,7 +673,6 @@ const EnhancedNewRegistrationStep1 = withFormik({
 
   handleSubmit: (values, bag) => {
     bag.setSubmitting(false);
-    console.log('I am called step1');
     //bag.props.callServer(values);
     bag.props.callServer(prepareAPIRequestStep1(values));
   },
@@ -759,7 +758,6 @@ const EnhancedNewRegistrationStep2 = withFormik({
 
   handleSubmit: (values, bag) => {
     bag.setSubmitting(false);
-    console.log('I am called step2');
     bag.props.callServer(prepareAPIRequestStep2(values));
   },
 
@@ -920,7 +918,9 @@ class NewRequest extends Component {
   getPrevStepsDataFromServer(config, id) {
     instance.get(`/registration/sections/${id}`, config)
       .then(response => {
-        this.setState({prevStepsData: response.data});
+        if(response.status===200){
+          this.setState({prevStepsData: response.data});
+        }
       })
       .catch(error => {
         errors(this, error);
@@ -961,7 +961,6 @@ class NewRequest extends Component {
           this.setState({stepReady: true});
         }
         this.setState({step: 3});
-        console.log(response.data)
         this.setState({stepReady: true});
       })
       .catch((error) => {
@@ -994,7 +993,6 @@ class NewRequest extends Component {
             state: {details: statusDetails}
           });
         }
-        console.log(response.data)
       })
       .catch((error) => {
         this.setState({stepReady: true});
@@ -1029,7 +1027,7 @@ class NewRequest extends Component {
                 <ModalHeader><b>Previous Steps Details</b></ModalHeader>
                 <ModalBody>
                   {!isNil(prevStepsData) && !isEmpty(prevStepsData.reg_details) &&
-                  <div>
+                  <div id="someId">
                     <h6>Basic registration details</h6>
                     <table className="table table-bordered">
                       <tbody>
