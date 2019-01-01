@@ -43,7 +43,6 @@ export default class RenderDateRangePicker extends Component {
     })
   }
   onDatesChange(dateObj1) {
-      console.log(dateObj1);
       if(dateObj1.startDate) {
           this.setState({startDate: dateObj1.startDate})
       }

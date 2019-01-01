@@ -508,7 +508,6 @@ const EnhancedDeRegistrationStep1 = withFormik({
 
   handleSubmit: (values, bag) => {
     bag.setSubmitting(false);
-    console.log('I am called step1');
     //bag.props.callServer(values);
     bag.props.callServer(prepareAPIRequestStep1(values));
   },
@@ -540,7 +539,6 @@ const EnhancedDeRegistrationStep2 = withFormik({
   // Custom sync validation
   validate: values => {
     let errors = {};
-    console.log(values.verified_devices);
     if (!values.verified_devices || values.verified_devices.length === 0) {
       errors.verified_devices = 'Please check at least one device'
     }
@@ -549,7 +547,6 @@ const EnhancedDeRegistrationStep2 = withFormik({
 
   handleSubmit: (values, bag) => {
     bag.setSubmitting(false);
-    console.log('I am called step2');
     bag.props.callServer(prepareAPIRequestStep2(values));
   },
 
@@ -616,7 +613,6 @@ const EnhancedDeRegistrationStep3 = withFormik({
 
   handleSubmit: (values, bag) => {
     bag.setSubmitting(false);
-    console.log('I am called step3');
     bag.props.callServer(prepareAPIRequestStep3(values));
   },
 

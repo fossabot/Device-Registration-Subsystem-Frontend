@@ -22,7 +22,6 @@ class RenderFileInput extends Component {
 
   }
   handleChange(event) {
-      console.log(this.props.fieldName);
     // this is going to call setFieldValue and manually update values.fieldName
     this.props.onChange(this.props.fieldName, event.currentTarget.files[0]);
   }

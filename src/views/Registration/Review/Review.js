@@ -78,7 +78,7 @@ const step5PrevStatus = lensPath(['steps', 'step5', 'prevReviewStatus'])
 const step5Feedback = lensPath(['steps', 'step5', 'reviewFeedback'])
 const step5Comments = lensPath(['steps', 'step5', 'comments'])
 
-class ReviewRegistrationForm extends Component {
+export class ReviewRegistrationForm extends Component {
   render() {
     const {
       dirty,
@@ -110,7 +110,7 @@ class ReviewRegistrationForm extends Component {
         {
           (t) => (
             <div>
-              <div className="steps-status space-between">
+              <div id="stepHeader" className="steps-status space-between">
                 <div>
                   <h4>{t('requestId')}: <span className="text-primary">{id}</span> &nbsp;&nbsp;
                     <small>{viewType === 'registration' ?
@@ -489,7 +489,7 @@ function prepareAPIRequest(values, step, id, requestType) {
   }
 }
 
-const EnhancedForm = withFormik({
+export const EnhancedForm = withFormik({
   mapPropsToValues: (props) => ({
     reviewStatus: props.reviewStatus,
     reviewFeedback: props.reviewFeedback
@@ -636,7 +636,7 @@ class Review extends Component {
       .then((response) => {
         if (response.status === 201) {
           this.setState({
-            assigned: false
+            assigned: false,
           })
           this.props.history.push('/search-requests')
         }
@@ -830,19 +830,21 @@ class Review extends Component {
     if (stepNumber === 1) {
       instance.get(`/review/device-quota?request_id=${id}`, config)
         .then(response => {
-          this.setState(state => {
-            return set(step1ApiDataLens, response.data, state);
-          }, () => {
-            if (push) {
-              this.setState(state => {
-                return set(currentStepLens, 1, state);
-              }, () => {
-                this.setState({
-                  stepReady: true
+          if(response.status===200){
+            this.setState(state => {
+              return set(step1ApiDataLens, response.data, state);
+            }, () => {
+              if (push) {
+                this.setState(state => {
+                  return set(currentStepLens, 1, state);
+                }, () => {
+                  this.setState({
+                    stepReady: true
+                  })
                 })
-              })
-            }
-          });
+              }
+            });
+          }
         })
         .catch(error => {
           this.setState({
@@ -863,19 +865,21 @@ class Review extends Component {
     else if (stepNumber === 2) {
       instance.get(`/review/device-description?request_id=${id}&request_type=${type}`, config)
         .then(response => {
-          this.setState((state) => {
-            return set(step2ApiDataLens, response.data, state)
-          }, () => {
-            if (push) {
-              this.setState(state => {
-                return set(currentStepLens, 2, state);
-              }, () => {
-                this.setState({
-                  stepReady: true
+          if(response.status===200){
+            this.setState((state) => {
+              return set(step2ApiDataLens, response.data, state)
+            }, () => {
+              if (push) {
+                this.setState(state => {
+                  return set(currentStepLens, 2, state);
+                }, () => {
+                  this.setState({
+                    stepReady: true
+                  })
                 })
-              })
-            }
-          });
+              }
+            });
+          }
         })
         .catch(error => {
           if(type==='registration'){
@@ -911,19 +915,21 @@ class Review extends Component {
     else if (stepNumber === 3) {
       instance.get(`/review/imei-classification?request_id=${id}&request_type=${type}`, config)
         .then(response => {
-          this.setState(state => {
-            return set(step3ApiDataLens, response.data, state);
-          }, () => {
-            if (push) {
-              this.setState(state => {
-                return set(currentStepLens, 3, state);
-              }, () => {
-                this.setState({
-                  stepReady: true
+          if(response.status===200){
+            this.setState(state => {
+              return set(step3ApiDataLens, response.data, state);
+            }, () => {
+              if (push) {
+                this.setState(state => {
+                  return set(currentStepLens, 3, state);
+                }, () => {
+                  this.setState({
+                    stepReady: true
+                  })
                 })
-              })
-            }
-          });
+              }
+            });
+          }
         })
         .catch(error => {
           this.setState({
@@ -979,19 +985,21 @@ class Review extends Component {
     else if (stepNumber === 5) {
       instance.get(`/review/documents?request_id=${id}&request_type=${type}`, config)
         .then(response => {
-          this.setState(state => {
-            return set(step5ApiDataLens, response.data, state);
-          }, () => {
-            if (push) {
-              this.setState(state => {
-                return set(currentStepLens, 5, state);
-              }, () => {
-                this.setState({
-                  stepReady: true
+          if(response.status===200){
+            this.setState(state => {
+              return set(step5ApiDataLens, response.data, state);
+            }, () => {
+              if (push) {
+                this.setState(state => {
+                  return set(currentStepLens, 5, state);
+                }, () => {
+                  this.setState({
+                    stepReady: true
+                  })
                 })
-              })
-            }
-          });
+              }
+            });
+          }
         })
         .catch(error => {
           this.setState({
@@ -1014,56 +1022,58 @@ class Review extends Component {
         instance.get(`/review/device-quota?request_id=${id}`, config)
           .then(response => {
             //Reset Data if all the steps are completed
-            this.setState(state => {
-              const updateApiData = set(step1ApiDataLens, response.data, state);
-              const updateStatus = {
-                ...updateApiData,
-                currentReviewStatus: '',
-                currentReviewFeedback: '',
-                steps: {
-                  ...this.state.steps,
-                  step2: {
-                    data: {},
-                    ...this.state.steps.step2,
-                    apiData: null,
-                    reviewStatus: '',
-                    reviewFeedback: ''
-                  },
-                  step3: {
-                    ...this.state.steps.step3,
-                    data: {},
-                    apiData: null,
-                    reviewStatus: '',
-                    reviewFeedback: ''
-                  },
-                  step4: {
-                    ...this.state.steps.step4,
-                    data: {},
-                    apiData: null,
-                    reviewStatus: '',
-                    reviewFeedback: ''
-                  },
-                  step5: {
-                    ...this.state.steps.step5,
-                    data: {},
-                    apiData: null,
-                    reviewStatus: '',
-                    reviewFeedback: ''
+            if(response.status===200){
+              this.setState(state => {
+                const updateApiData = set(step1ApiDataLens, response.data, state);
+                const updateStatus = {
+                  ...updateApiData,
+                  currentReviewStatus: '',
+                  currentReviewFeedback: '',
+                  steps: {
+                    ...this.state.steps,
+                    step2: {
+                      data: {},
+                      ...this.state.steps.step2,
+                      apiData: null,
+                      reviewStatus: '',
+                      reviewFeedback: ''
+                    },
+                    step3: {
+                      ...this.state.steps.step3,
+                      data: {},
+                      apiData: null,
+                      reviewStatus: '',
+                      reviewFeedback: ''
+                    },
+                    step4: {
+                      ...this.state.steps.step4,
+                      data: {},
+                      apiData: null,
+                      reviewStatus: '',
+                      reviewFeedback: ''
+                    },
+                    step5: {
+                      ...this.state.steps.step5,
+                      data: {},
+                      apiData: null,
+                      reviewStatus: '',
+                      reviewFeedback: ''
+                    }
                   }
                 }
-              }
-              return updateStatus;
-            }, () => {
-              if (push) {
-                this.setState(state => {
-                  return set(currentStepLens, 1, state);
-                }, () => {
-                  this.setState({
-                    stepReady: true
+                return updateStatus;
+              }, () => {
+                if (push) {
+                  this.setState(state => {
+                    return set(currentStepLens, 1, state);
+                  }, () => {
+                    this.setState({
+                      stepReady: true
+                    })
                   })
-                })
-              }
-            });
+                }
+              });
+            }
           })
           .catch(error => {
             this.setState({
@@ -1084,49 +1094,51 @@ class Review extends Component {
         instance.get(`/review/device-description?request_id=${id}&request_type=${type}`, config)
           .then(response => {
             //Reset Data if all the steps are completed
-            this.setState(state => {
-              const updateApiData = set(step2ApiDataLens, response.data, state);
-              const updateStatus = {
-                ...updateApiData,
-                currentReviewStatus: '',
-                currentReviewFeedback: '',
-                steps: {
-                  ...this.state.steps,
-                  step3: {
-                    ...this.state.steps.step3,
-                    data: {},
-                    apiData: null,
-                    reviewStatus: '',
-                    reviewFeedback: ''
-                  },
-                  step4: {
-                    ...this.state.steps.step4,
-                    data: {},
-                    apiData: null,
-                    reviewStatus: '',
-                    reviewFeedback: ''
-                  },
-                  step5: {
-                    ...this.state.steps.step5,
-                    data: {},
-                    apiData: null,
-                    reviewStatus: '',
-                    reviewFeedback: ''
+            if(response.status===200){
+              this.setState(state => {
+                const updateApiData = set(step2ApiDataLens, response.data, state);
+                const updateStatus = {
+                  ...updateApiData,
+                  currentReviewStatus: '',
+                  currentReviewFeedback: '',
+                  steps: {
+                    ...this.state.steps,
+                    step3: {
+                      ...this.state.steps.step3,
+                      data: {},
+                      apiData: null,
+                      reviewStatus: '',
+                      reviewFeedback: ''
+                    },
+                    step4: {
+                      ...this.state.steps.step4,
+                      data: {},
+                      apiData: null,
+                      reviewStatus: '',
+                      reviewFeedback: ''
+                    },
+                    step5: {
+                      ...this.state.steps.step5,
+                      data: {},
+                      apiData: null,
+                      reviewStatus: '',
+                      reviewFeedback: ''
+                    }
                   }
-                }
-              };
-              return updateStatus;
-            }, () => {
-              if (push) {
-                this.setState(state => {
-                  return set(currentStepLens, 2, state);
-                }, () => {
-                  this.setState({
-                    stepReady: true
+                };
+                return updateStatus;
+              }, () => {
+                if (push) {
+                  this.setState(state => {
+                    return set(currentStepLens, 2, state);
+                  }, () => {
+                    this.setState({
+                      stepReady: true
+                    })
                   })
-                })
-              }
-            });
+                }
+              });
+            }
           })
           .catch(error => {
             this.setState({

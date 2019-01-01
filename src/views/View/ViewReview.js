@@ -32,7 +32,7 @@ import ImeiClassification from "../../views/Registration/Sections/ImeiClassifica
 import ImeiRegistration from "../../views/Registration/Sections/ImeiRegistration"
 import ApprovalDocuments from "../../views/Registration/Sections/ApprovalDocuments"
 
-const Steps = ({
+export const Steps = ({
                  stepsInfo,
                  stepsNames,
                  assigned,
@@ -59,7 +59,7 @@ const Steps = ({
       {
         (t) => (
           <div>
-            <div className="steps-status space-between">
+            <div id="stepHeader" className="steps-status space-between">
               <div>
                 <h4>{t('requestId')}: <span className="text-primary">{id}</span> &nbsp;&nbsp;
                   <small>{viewType === 'registration_request' ?
@@ -195,7 +195,7 @@ class ViewReview extends Component {
       steps: {
         currentStep: 1,
         step1: {
-          apiData: {},
+          apiData: null,
           comments: [],
         },
         step2: {
