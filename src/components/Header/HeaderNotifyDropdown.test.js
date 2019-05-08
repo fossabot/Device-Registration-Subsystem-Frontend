@@ -11,27 +11,44 @@ NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS 
 */
 
 import HeaderNotifyDropdown from './HeaderNotifyDropdown'
-import axios from 'axios';
 import mockAxios from 'jest-mock-axios';
+import {getUserInfo} from "../../utilities/helpers";
+// import {getUserGroups} from './../../utilities/helpers'
 
-describe('Header Nofication Component', () => {
+describe('Header Notification Component', () => {
   afterEach(() => {
     mockAxios.reset();
   });
+  beforeEach(() => {
+    localStorage.clear();
+    localStorage.userInfo = 'eyJzdWIiOiI2ZWQ5NzQ3Yi1kMzZhLTQ3OTktODhjOC01OWQxN2E5YWJiNWEiLCJuYW1lIjoiIiwicHJlZmVycmVkX3VzZXJuYW1lIjoiZHJzIGltcG9ydGVyIHVzZXIifQ=='
+  })
+  const resourceMock = {
+    realm_access: {
+      roles: ['drs_authority']
+    }
+  }
+  const mockHeader = {
+    "headers": {
+      "Accept-Language": "en-US",
+      "Authorization": "Bearer null",
+      "Content-Type": "application/json"
+    }
+  }
   test('if render correctly', () => {
-    const wrapper = shallow(<HeaderNotifyDropdown/>);
+    const wrapper = shallow(<HeaderNotifyDropdown kc={mockKcProps}/>);
     expect(wrapper).toMatchSnapshot();
   })
   test('if renders correctly again', () => {
-    const wrapper = render(<HeaderNotifyDropdown/>);
+    const wrapper = render(<HeaderNotifyDropdown kc={mockKcProps}/>);
     expect(wrapper).toMatchSnapshot();
   });
   test('if state renders correctly', () => {
-    const wrapper = mount(<HeaderNotifyDropdown/>);
+    const wrapper = mount(<HeaderNotifyDropdown kc={mockKcProps}/>);
     expect(wrapper.find('HeaderNotifyDropdown').state().dropdownOpen).toBe(false)
     expect(wrapper.find('HeaderNotifyDropdown').state().notifications).toEqual([])
     expect(wrapper.find('HeaderNotifyDropdown').state().loading).toBe(false)
-    expect(wrapper.find('HeaderNotifyDropdown').state().hasNotifications).toBe(false)
+    expect(wrapper.find('HeaderNotifyDropdown').state().notificationCount).toBe(null)
   });
   test('if state renders correctly', () => {
     let mockNotifications = [
@@ -52,7 +69,7 @@ describe('Header Nofication Component', () => {
         "generated_at": "2018-10-19T07:42:03.661755+00:00"
       }
     ]
-    const wrapper = mount(<HeaderNotifyDropdown/>);
+    const wrapper = mount(<HeaderNotifyDropdown kc={mockKcProps} resources={resourceMock}/>);
     let mockNotificationResponse = {
       data: {
         notifications: mockNotifications
@@ -70,10 +87,8 @@ describe('Header Nofication Component', () => {
 
     expect(wrapper.find('DropdownItem').length).toEqual(2)
     expect(wrapper.state().notifications).toEqual(mockNotifications)
-    expect(wrapper.state().hasNotifications).toBe(true)
+    expect(wrapper.state().notificationCount).toBe(2)
     expect(wrapper.find('Dropdown').props().isOpen).toBe(true)
-    // console.log(wrapper.find('HeaderNotifyDropdown').state())
-    // console.log(wrapper.find('HeaderNotifyDropdown').debug())
   });
   test('if dropdown triggers', () => {
     let mockNotifications = [
@@ -94,7 +109,7 @@ describe('Header Nofication Component', () => {
         "generated_at": "2018-10-19T07:42:03.661755+00:00"
       }
     ]
-    const wrapper = mount(<HeaderNotifyDropdown/>);
+    const wrapper = mount(<HeaderNotifyDropdown resources={resourceMock} kc={mockKcProps}/>);
     let mockNotificationResponse = {
       data: {
         notifications: mockNotifications
@@ -108,25 +123,23 @@ describe('Header Nofication Component', () => {
       loading: false
     })
     wrapper.update()
-
     //Toggle dropdown
-    wrapper.instance().toggle()
-    wrapper.update()
-
-    mockAxios.mockResponse(mockNotificationResponse)
-    wrapper.update()
+    wrapper.setState({
+      dropdownOpen: false
+    });
 
     expect(wrapper.state().dropdownOpen).toBe(false)
     expect(wrapper.state().loading).toBe(false)
     expect(wrapper.find('Dropdown').props().isOpen).toBe(false)
   });
-  test('if clicking on notification item render information correctly', () => {
+  test('if clicking on notification item render information correctly for Reviewer user', () => {
+    getUserInfo().sub = '6ed9747b-d36a-4799-88c8-59d17a9abb5a';
     let mockNotifications = [
       {
         "request_type": "registration_request",
         "id": 985,
-        "request_status": 6,
-        "message": "Your request 1579 has been approved",
+        "request_status": 4,
+        "message": "Request in Review",
         "request_id": 1579,
         "generated_at": "2018-10-29T07:03:10.824439+00:00"
       },
@@ -139,9 +152,7 @@ describe('Header Nofication Component', () => {
         "generated_at": "2018-10-19T07:42:03.661755+00:00"
       }
     ]
-    let spy = Sinon.spy()
-    const historyMock = {push: spy};
-    const wrapper = mount(<HeaderNotifyDropdown history={historyMock}/>);
+    const wrapper = mount(<HeaderNotifyDropdown kc={mockKcProps} resources={resourceMock}/>);
     let mockNotificationResponse = {
       data: {
         notifications: mockNotifications
@@ -155,18 +166,63 @@ describe('Header Nofication Component', () => {
       loading: false
     })
     wrapper.update()
-
-    wrapper.find('DropdownItem').at(0).simulate('click')
+    wrapper.find('button').at(0).simulate('click')
     let notifcationclickResponse = {
-      data :{
-        "notifications": []
-      },
+      data :"",
       status:201
     }
     mockAxios.mockResponse(notifcationclickResponse)
     wrapper.update()
 
-    expect(spy.calledOnce).toBe(true)
-    expect(wrapper.state().hasNotifications).toBe(false)
+    //Test
+    expect(mockAxios.put).toHaveBeenCalledWith('/notification', {
+        notification_id: 985,
+        user_id: "6ed9747b-d36a-4799-88c8-59d17a9abb5a"
+      }, mockHeader);
+  })
+  test('if clicking on notification item render information correctly for non Reviewer users', () => {
+    getUserInfo().sub = '6ed9747b-d36a-4799-88c8-59d17a9abb5a';
+    let mockNotifications = [
+      {
+        "id": 20,
+        "message": "The request 16 has been updated.",
+        "request_status": 4,
+        "request_type": "registration_request",
+        "generated_at": "2019-02-06T12:23:48.912550+00:00",
+        "request_id": 16
+      }
+    ]
+    const kcResource = {
+      realm_access: {
+        roles: ['uma_authorization', 'importer']
+      }
+    }
+    const wrapper = mount(<HeaderNotifyDropdown kc={mockKcProps} resources={kcResource}/>);
+    let mockNotificationResponse = {
+      data: {
+        notifications: mockNotifications
+      },
+      status: 200
+    }
+    mockAxios.mockResponse(mockNotificationResponse)
+    wrapper.setState({
+      notifications: mockNotifications,
+      dropdownOpen: true,
+      loading: false
+    })
+    wrapper.update()
+    wrapper.find('button').at(0).simulate('click')
+    let notifcationclickResponse = {
+      data :"",
+      status:201
+    }
+    mockAxios.mockResponse(notifcationclickResponse)
+    wrapper.update()
+
+    //Test
+    expect(mockAxios.put).toHaveBeenCalledWith('/notification', {
+      notification_id: 20,
+      user_id: "6ed9747b-d36a-4799-88c8-59d17a9abb5a"
+    }, mockHeader);
   })
 })

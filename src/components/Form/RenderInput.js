@@ -14,17 +14,20 @@ import React from "react";
 import {Input, FormGroup, Label, FormFeedback} from 'reactstrap';
 
 const renderInput = ({
-  field, // { name, value, onChange, onBlur }
-  form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-  ...props
-}) => {
+                       field, // { name, value, onChange, onBlur }
+                       form: {touched, errors}, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
+                       ...props
+                     }) => {
   const states = (touched[field.name] && errors[field.name]) ? false : null;
   return (
     <FormGroup>
-      <Label>{props.label} {props.tooltip && <i className="fa fa-question-circle" data-for={field.name} data-tip></i>} {props.requiredStar &&<span className="text-danger">*</span>} {props.warningStar && <span className="text-warning">*</span>}</Label>
-      <Input {...field} type={props.type} placeholder={props.placeholder} valid={states} disabled={props.disable} readOnly={props.readOnly} />
+      <Label>{props.label} {props.tooltip &&
+      <i className="fa fa-question-circle" data-for={field.name} data-tip></i>} {props.requiredStar &&
+      <span className="text-danger">*</span>} {props.warningStar && <span className="text-warning">*</span>}</Label>
+      <Input {...field} type={props.type} placeholder={props.placeholder} valid={states} disabled={props.disable}
+             readOnly={props.readOnly}/>
       {touched[field.name] &&
-      errors[field.name] && <FormFeedback>{errors[field.name]}</FormFeedback>}
+      errors[field.name] && <FormFeedback className="d-block">{errors[field.name]}</FormFeedback>}
     </FormGroup>
   )
 };

@@ -4,10 +4,10 @@ import {
   NavbarToggler,
   NavbarBrand,
 } from 'reactstrap';
+import i18n from './../../i18n'
 import HeaderDropdown from './HeaderDropdown';
 import HeaderNotifyDropdown from './HeaderNotifyDropdown';
-import {getUserRole} from "../../utilities/helpers";
-import {AUTHORITY} from "../../utilities/constants";
+import HeaderLanguageDropdown from './HeaderLanguageDropdown'
 
 class Header extends Component {
 
@@ -28,16 +28,15 @@ class Header extends Component {
           <span className="navbar-toggler-icon"></span>
         </NavbarToggler>
         <NavbarBrand href="#">
-            <h5 className="navbar-brand-minimized">DRS</h5>
-            <h5 className="navbar-brand-full">Device Registration Subsystem</h5>
+          <h5 className="navbar-brand-minimized">DRS</h5>
+          <h5 className="navbar-brand-full">{i18n.t('title')}</h5>
         </NavbarBrand>
         <NavbarToggler className="d-none mr-auto" onClick={this.sidebarToggle}>
           <span className="navbar-toggler-icon"></span>
         </NavbarToggler>
-        <Nav className="ml-auto" navbar>
-          {getUserRole(this.props.resources) !== '' && getUserRole(this.props.resources) !== AUTHORITY &&
+        <Nav navbar>
+          <HeaderLanguageDropdown {...this.props} switchLanguage={this.props.switchLanguage} />
           <HeaderNotifyDropdown {...this.props}/>
-          }
           <HeaderDropdown {...this.props}/>
         </Nav>
       </header>

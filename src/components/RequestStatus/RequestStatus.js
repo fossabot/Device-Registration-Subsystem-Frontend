@@ -11,6 +11,7 @@ NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS 
 */
 
 import React, { Component } from 'react';
+import i18n from './../../i18n'
 import { Link } from "react-router-dom";
 
 class RequestStatus extends Component {
@@ -23,26 +24,42 @@ class RequestStatus extends Component {
             <div className="icon-box">
               <i className={details.icon}></i>
             </div>
-            <h4>Review has been <span>{details.action}</span></h4>
+            <h4>{i18n.t('requestStatusPage.titleReviewer')}<span>{i18n.t(details.action)}</span></h4>
             <div className="msg">
-              <p>Request type is <span>{details.typeLabel}</span> and tracking ID is <span>{details.id}</span> and status is <span>{details.status}</span></p>
-              <p>Please click the button below to view your Request.</p>
+              <p>
+                  {i18n.t('requestStatusBodyText.type')}
+                  <span>{details.typeLabel}</span>
+                  {i18n.t('requestStatusBodyText.id')}
+                  <span>{details.id}</span>
+                  {i18n.t('requestStatusBodyText.status')}
+                  <span>{details.status}</span>
+              </p>
+              <p>{i18n.t('requestStatusPage.infoText')}</p>
             </div>
             <div className="link-box">
-              <Link to={`/view-review/${details.id}/${details.type}`} className="btn btn-primary">View Review</Link>
+              <Link to={`/view-review/${details.id}/${details.type}`} className="btn btn-primary">{i18n.t('viewReviewLink')}</Link>
             </div>
           </div>) ||
           <div className="submitted">
             <div className="icon-box">
               <i className={details.icon}></i>
             </div>
-            <h4>Your Request has been <span>{details.action}</span> successfully.</h4>
+            <h4>{i18n.t('requestStatusPage.titleUser')}<span>{details.action}</span> {i18n.t('successfully')}</h4>
             <div className="msg">
-              <p>Your Request type is <span>{details.typeLabel}</span> and tracking ID is <span>{details.id}</span> and status is <span>{details.status}</span></p>
-              <p>Please click the button below to view your Request.</p>
+              <p>
+                <>
+                  {i18n.t('requestStatusBodyText.type')}
+                  <span>{i18n.t(details.typeLabel)}</span>
+                  {i18n.t('requestStatusBodyText.id')}
+                  <span>{details.id}</span>
+                  {i18n.t('requestStatusBodyText.status')}
+                  <span>{i18n.t(details.status)}</span>
+                </>
+              </p>
+              <p>{i18n.t('requestStatusPage.infoText')}</p>
             </div>
             <div className="link-box">
-              <Link to={`/view-request/${details.id}/${details.type}`} className="btn btn-primary">View your Request</Link>
+              <Link to={`/view-request/${details.id}/${details.type}`} className="btn btn-primary">{i18n.t('View your Request')}</Link>
             </div>
           </div>
         }

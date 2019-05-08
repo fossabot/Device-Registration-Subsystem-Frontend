@@ -1,9 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header Nofication Component if render correctly 1`] = `
+exports[`Header Notification Component if render correctly 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <HeaderNotifyDropdown />,
+  Symbol(enzyme.__unrendered__): <HeaderNotifyDropdown
+    kc={
+      Object {
+        "isTokenExpired": [Function],
+        "logout": [Function],
+      }
+    }
+  />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -24,6 +31,7 @@ ShallowWrapper {
           aria-haspopup={true}
           color="secondary"
           nav={true}
+          onClick={[Function]}
         >
           <i
             className="fa fa-bell-o fa-lg"
@@ -32,7 +40,6 @@ ShallowWrapper {
         <DropdownMenu
           className="dropdown-notify dropdown-menu-lg"
           flip={true}
-          right={true}
           tag="div"
         >
           <div
@@ -45,7 +52,7 @@ ShallowWrapper {
           <p
             className="no-data"
           >
-            No new Notifications
+            No new notifications
           </p>
         </DropdownMenu>,
       ],
@@ -72,6 +79,7 @@ ShallowWrapper {
           ],
           "color": "secondary",
           "nav": true,
+          "onClick": [Function],
         },
         "ref": null,
         "rendered": Array [
@@ -107,12 +115,11 @@ ShallowWrapper {
             <p
               className="no-data"
             >
-              No new Notifications
+              No new notifications
             </p>,
           ],
           "className": "dropdown-notify dropdown-menu-lg",
           "flip": true,
-          "right": true,
           "tag": "div",
         },
         "ref": null,
@@ -147,11 +154,11 @@ ShallowWrapper {
             "key": undefined,
             "nodeType": "host",
             "props": Object {
-              "children": "No new Notifications",
+              "children": "No new notifications",
               "className": "no-data",
             },
             "ref": null,
-            "rendered": "No new Notifications",
+            "rendered": "No new notifications",
             "type": "p",
           },
         ],
@@ -173,6 +180,7 @@ ShallowWrapper {
             aria-haspopup={true}
             color="secondary"
             nav={true}
+            onClick={[Function]}
           >
             <i
               className="fa fa-bell-o fa-lg"
@@ -181,7 +189,6 @@ ShallowWrapper {
           <DropdownMenu
             className="dropdown-notify dropdown-menu-lg"
             flip={true}
-            right={true}
             tag="div"
           >
             <div
@@ -194,7 +201,7 @@ ShallowWrapper {
             <p
               className="no-data"
             >
-              No new Notifications
+              No new notifications
             </p>
           </DropdownMenu>,
         ],
@@ -221,6 +228,7 @@ ShallowWrapper {
             ],
             "color": "secondary",
             "nav": true,
+            "onClick": [Function],
           },
           "ref": null,
           "rendered": Array [
@@ -256,12 +264,11 @@ ShallowWrapper {
               <p
                 className="no-data"
               >
-                No new Notifications
+                No new notifications
               </p>,
             ],
             "className": "dropdown-notify dropdown-menu-lg",
             "flip": true,
-            "right": true,
             "tag": "div",
           },
           "ref": null,
@@ -296,11 +303,11 @@ ShallowWrapper {
               "key": undefined,
               "nodeType": "host",
               "props": Object {
-                "children": "No new Notifications",
+                "children": "No new notifications",
                 "className": "no-data",
               },
               "ref": null,
-              "rendered": "No new Notifications",
+              "rendered": "No new notifications",
               "type": "p",
             },
           ],
@@ -330,7 +337,7 @@ ShallowWrapper {
 }
 `;
 
-exports[`Header Nofication Component if renders correctly again 1`] = `
+exports[`Header Notification Component if renders correctly again 1`] = `
 initialize {
   "0": Object {
     "attribs": Object {
@@ -369,7 +376,7 @@ initialize {
         "next": Object {
           "attribs": Object {
             "aria-hidden": "true",
-            "class": "dropdown-notify dropdown-menu-lg dropdown-menu dropdown-menu-right",
+            "class": "dropdown-notify dropdown-menu-lg dropdown-menu",
             "role": "menu",
             "tabindex": "-1",
           },
@@ -408,7 +415,7 @@ initialize {
                 },
                 "children": Array [
                   Object {
-                    "data": "No new Notifications",
+                    "data": "No new notifications",
                     "next": null,
                     "parent": [Circular],
                     "prev": null,
@@ -444,7 +451,7 @@ initialize {
               },
               "children": Array [
                 Object {
-                  "data": "No new Notifications",
+                  "data": "No new notifications",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
@@ -541,7 +548,7 @@ initialize {
       Object {
         "attribs": Object {
           "aria-hidden": "true",
-          "class": "dropdown-notify dropdown-menu-lg dropdown-menu dropdown-menu-right",
+          "class": "dropdown-notify dropdown-menu-lg dropdown-menu",
           "role": "menu",
           "tabindex": "-1",
         },
@@ -580,7 +587,7 @@ initialize {
               },
               "children": Array [
                 Object {
-                  "data": "No new Notifications",
+                  "data": "No new notifications",
                   "next": null,
                   "parent": [Circular],
                   "prev": null,
@@ -616,7 +623,7 @@ initialize {
             },
             "children": Array [
               Object {
-                "data": "No new Notifications",
+                "data": "No new notifications",
                 "next": null,
                 "parent": [Circular],
                 "prev": null,

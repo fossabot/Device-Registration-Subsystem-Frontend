@@ -13,6 +13,7 @@ NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS 
 import React, {Component} from "react";
 import moment from "moment";
 import { DateRangePicker } from "react-dates";
+import i18n from './../../i18n'
 import {Date_Format} from './../../utilities/constants';
 
 export default class RenderDateRangePicker extends Component {
@@ -94,6 +95,8 @@ export default class RenderDateRangePicker extends Component {
         readOnly
         orientation={window.matchMedia("(max-width: 575px)").matches?"vertical":"horizontal"}
         daySize={28}
+        startDatePlaceholderText={i18n.t('startDate')}
+        endDatePlaceholderText={i18n.t('endDate')}
       />
     );
   }

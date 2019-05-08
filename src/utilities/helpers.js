@@ -9,17 +9,66 @@ Redistribution and use in source and binary forms, with or without modification,
 * Neither the name of Qualcomm Technologies, Inc. nor the names of its contributors may be used to endorse or promote products derived from this software without specific prior written permission.
 NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
+import React from 'react'
 import axios from 'axios';
-import {toast} from 'react-toastify';
 import Base64 from 'base-64';
-import {BASE_URL, APP_NAME} from './constants';
+import {
+  BASE_URL,
+  APP_NAME,
+  TECHNOLOGIES,
+  STATUS_TYPES,
+  DEVICE_TYPES,
+  DOCUMENTS,
+  DE_DOCUMENTS
+} from './constants';
 import FileSaver from "file-saver";
 import {lastIndexOf, take} from 'ramda'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import i18n from './../i18n'
+const MySwal = withReactContent(Swal)
 
 export const instance = axios.create({ // API Gateway
   baseURL: BASE_URL, // Dev API
 });
+
+export function fetchServerConfigData () {
+  const config = {
+    headers: getAuthHeader()
+  }
+  instance.get(`/config/server-config`, config)
+    .then(response => {
+      let data = response.data;
+      if (data.technologies) {
+        data.technologies.map((technology) => (
+          TECHNOLOGIES.push(technology)
+        ))
+      }
+      if (data.status_types) {
+        data.status_types.map((status) => (
+          STATUS_TYPES.push(status)
+        ))
+      }
+      if (data.device_types) {
+        data.device_types.map((type) => (
+          DEVICE_TYPES.push(type)
+        ))
+      }
+      if (data.documents.registration) {
+        data.documents.registration.map((doc) => (
+          DOCUMENTS.push(doc)
+        ))
+      }
+      if (data.documents.de_registration) {
+        data.documents.de_registration.map((doc) => (
+          DE_DOCUMENTS.push(doc)
+        ))
+      }
+    })
+    .catch(error => {
+      errors(this, error);
+    });
+}
 
 export function getExtension(param) {
   if (!param) {
@@ -45,13 +94,13 @@ export function capitalize(text) {
 export function getReviewStatus(status) {
   switch (status) {
     case 5:
-      return 'Information requested';
+      return i18n.t('reviewStatus.requested');
 
     case 6:
-      return 'Approved';
+      return i18n.t('Approved');
 
     case 7:
-      return 'Rejected';
+      return i18n.t('Rejected');
 
     default:
       return '';
@@ -105,25 +154,6 @@ export function downloadSampleFile(kcProps,type, e) {
         errors(this, error);
       })
   }
-}
-
-export function downloadReport(config, id, viewType) {
-  const type = viewType
-  instance.get(`/${type}/report/${id}`, config)
-    .then(response => {
-      if (response.status === 200) {
-        try {
-          let file = new File([response.data], `Report.tsv`);
-          FileSaver.saveAs(file);
-        } catch (err) {
-          let textFileAsBlob = new Blob([response.data]);
-          window.navigator.msSaveBlob(textFileAsBlob, 'Report.tsv');
-        }
-      }
-    })
-    .catch(error => {
-      errors(this, error);
-    })
 }
 
 export function downloadDocument(kcProps,link, fileType, fileName, event) {
@@ -229,7 +259,8 @@ export function getAuthHeader (token) {
   }
   return {
     'Authorization': 'Bearer ' + accessToken,
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'Accept-Language': i18n.language
   }
 }
 
@@ -247,6 +278,10 @@ export function range(start, limit, step) {
     result.push(start);
   }
   return result;
+}
+
+export function getLangTag (lng){
+  return lng.split('-')[0]
 }
 
 export function getUserInfo() {
@@ -308,48 +343,112 @@ export function isPage401(groups) {
   return pageStatus;
 }
 
+export function SweetAlert(params){
+  let title = params.title
+  let message = params.message
+  let type = params.type
 
+  MySwal.fire({
+    title: <p>{title}</p>,
+    text: message,
+    type: type,
+    confirmButtonText: i18n.t('ok')
+  })
+}
 // Generic Errors handling for Axios
 export function errors(context, error, noToastr = false) {
   if (typeof error !== 'undefined') {
-    if (typeof error.response === 'undefined') {
-      //toast.error('API Server is not responding or You are having some network issues');
-    } else {
+    if (typeof error.response !== 'undefined') {
       if (error.response.status === 400) {
-        toast.error(error.response.data.message);
-        //toast.error(error.response.data.error[0]);
+        let errors = error.response.data;
+        for (let key in errors) {
+          if (typeof errors[key][0] === 'object') {
+            for (let k in errors[key][0]) {
+              SweetAlert({
+                title: i18n.t('error'),
+                message: k + ' ' + errors[key][0][k],
+                type:'error'
+              })
+            }
+          } else {
+            SweetAlert({
+              title: i18n.t('error'),
+              message: errors[key][0],
+              type:'error'
+            })
+          }
+        }
       } else if (error.response.status === 401) {
-        toast.error('Your session has been expired, please wait');
+        SweetAlert({
+          title: i18n.t('error'),
+          message: i18n.t('sessionExpired'),
+          type:'error'
+        })
         setTimeout(() => {
           window.location.reload();
         }, 3000);
       } else if (error.response.status === 403) {
-        toast.error('These credential do not match our records.');
-        setTimeout(() => {
-          window.location.reload();
-        }, 3000);
+        SweetAlert({
+          title: i18n.t('error'),
+          message: 'credentialMatch',
+          type:'error'
+        })
       } else if (error.response.status === 404) {
-        toast.error(error.response.data.message);
+        SweetAlert({
+          title: i18n.t('error'),
+          message: error.response.data.message,
+          type:'error'
+        })
       } else if (error.response.status === 405) {
-        toast.error('You have used a wrong HTTP verb');
+        SweetAlert({
+          title: i18n.t('error'),
+          message: i18n.t('wrongHttp'),
+          type:'error'
+        })
       } else if (error.response.status === 406) {
-        toast.error(error.response.data.message);
+        SweetAlert({
+          title: i18n.t('error'),
+          message: error.response.data.message,
+          type:'error'
+        })
       } else if (error.response.status === 409) {
-        toast.error(error.response.data.message, {autoClose: false, closeOnClick: true});
+        SweetAlert({
+          title: i18n.t('error'),
+          message: error.response.data.message,
+          type:'error'
+        })
       } else if (error.response.status === 422 && !noToastr) {
         let errors = error.response.data;
-        for (var key in errors) {
+        for (let key in errors) {
           if (typeof errors[key][0] === 'object') {
-            for (var k in errors[key][0]) {
-              toast.error(k + ' ' + errors[key][0][k], {autoClose: false, closeOnClick: true});
+            for (let k in errors[key][0]) {
+              SweetAlert({
+                title: i18n.t('error'),
+                message: k + ' ' + errors[key][0][k],
+                type:'error'
+              })
             }
           } else {
-            toast.error(errors[key][0], {autoClose: false, closeOnClick: true});
+            SweetAlert({
+              title: i18n.t('error'),
+              message: errors[key][0],
+              type:'error'
+            })
           }
         }
       } else if (error.response.status >= 500) {
-        toast.error("API Server is not responding or You are having some network issues", {autoClose: 8000});
+        SweetAlert({
+          title: i18n.t('error'),
+          message: i18n.t('serverNotResponding'),
+          type:'error'
+        })
       }
+    } else {
+      SweetAlert({
+        title: i18n.t('error'),
+        message: i18n.t('serverNotResponding'),
+        type:'error'
+      })
     }
   }
 }

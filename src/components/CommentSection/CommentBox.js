@@ -12,6 +12,7 @@ NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS 
 
 import React from 'react';
 import {Card, CardBody, CardHeader} from "reactstrap";
+import i18n from './../../i18n'
 import moment from "moment";
 
 const CommentBox = (props) => {
@@ -36,7 +37,7 @@ const CommentBox = (props) => {
                 </div>
               </li>
             )
-          }))) || <li><div className='nodata'>No comments added</div></li>}
+          }))) || <li><div className='nodata'>{i18n.t('No comments added')}</div></li>}
         </ul>
       </CardBody>
     </Card>

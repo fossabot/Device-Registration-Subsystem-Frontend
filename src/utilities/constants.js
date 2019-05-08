@@ -34,6 +34,32 @@ export const DE_DOCUMENTS = []
 export const EXTENSIONS = ['pdf', 'jpg', 'png', 'gif', 'bmp', 'tiff', 'svg'];
 export const STATUS_TYPES = []
 
+export const REVIEW_STEPS = {
+ registration: [
+  'reviewRegistration.step1',
+  'reviewRegistration.step2',
+  'reviewRegistration.step3',
+  'reviewRegistration.step4',
+  'reviewRegistration.step5'],
+ de_registration: [
+  'reviewRegistration.step2',
+  'reviewRegistration.step3',
+  'reviewRegistration.step4',
+  'reviewRegistration.step5'
+ ]
+}
+export const REQUEST_STEPS = {
+ registration: [
+  'requestSteps.registration.basic',
+  'requestSteps.registration.deviceModel',
+  'reviewRegistration.step5'
+ ],
+ de_registration: [
+  'requestSteps.de-registration.basic',
+  'reviewRegistration.step5'
+ ]
+}
+
 export const Date_Format = 'YYYY-MM-DD';
 export const PAGE_LIMIT = 10;
 
@@ -42,3 +68,10 @@ export const BULK_IMPORTER = 'importer';
 export const INDIVIDUAL_IMPORTER = 'individual';
 export const EXPORTER = 'exporter';
 
+export const ITEMS_PER_PAGE= [
+ { value: 10, label: '10' },
+ { value: 20, label: '20' },
+ { value: 30, label: '30' },
+ { value: 50, label: '50' },
+ { value: 100, label: '100' }
+]

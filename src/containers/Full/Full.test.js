@@ -15,16 +15,15 @@ import Full from './Full'
 import { BrowserRouter as Router } from 'react-router-dom';
 import { MemoryRouter } from 'react-router';
 import SearchRequests from '../../views/SearchRequests/SearchRequests';
-import RequestStatus from "../../components/RequestStatus/RequestStatus";
 import * as helpers from '../../utilities/helpers';
-import NewRequest from "../../views/NewRequest";
-import UpdateRegistration from "../../views/Registration/Update/Update";
-import DeRegistration from "../../views/DeRegistration";
-import UpdateDeRegistration from "../../views/DeRegistration/Update/Update";
-import ReviewRegistration from "../../views/Registration/Review/Review";
+import NewRegistrationRequest from "../../views/Requests/Registration/NewRequest/NewRegistationRequest";
+import UpdateRegistration from "../../views/Requests/Registration/Update/Update";
+import NewDeregistrationRequest from "../../views/Requests/DeRegistration/NewRequest/NewDeregistrationRequest";
+import UpdateDeRegistration from "../../views/Requests/DeRegistration/Update/Update";
+import ReviewRegistration from "../../views/Requests/Review/Review";
 import Dashboard from "../../views/Dashboard";
-import ViewReview from "../../views/View/ViewReview";
-import ViewRequest from "../../views/View/ViewRequest";
+import ViewReview from "../../views/Requests/Review/View/ViewReview";
+import ViewRequest from "../../views/Requests/View/ViewRequest";
 
 const mockLogout = Sinon.spy();
 
@@ -45,7 +44,7 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 Object.defineProperty(window, 'getUserRole', { value: Sinon.spy()})
-
+jest.useFakeTimers();
 describe("Full component", () => {
   test("if renders correctly", () => {
     const wrapper = shallow(
@@ -56,7 +55,7 @@ describe("Full component", () => {
     const wrapper = render(
       <Router>
         <I18nextProvider i18n={i18n}>
-          <Full kc={kcMock}/>
+          <Full kc={mockKcProps}/>
         </I18nextProvider>
       </Router>
     )
@@ -66,7 +65,7 @@ describe("Full component", () => {
     const wrapper = mount(
       <Router>
         <I18nextProvider i18n={i18n}>
-          <Full  kc={kcMock}/>
+          <Full  kc={mockKcProps}/>
         </I18nextProvider>
       </Router>
     )
@@ -77,7 +76,7 @@ describe("Full component", () => {
     const wrapper = mount(
       <Router>
         <I18nextProvider i18n={i18n}>
-          <Full kc={kcMock}/>
+          <Full kc={mockKcProps}/>
         </I18nextProvider>
       </Router>
     )
@@ -86,6 +85,9 @@ describe("Full component", () => {
   });
 
   test('/search-requests should redirect to Search Page', () => {
+    const location = {
+      pathname: '/search-requests'
+    };
     const wrapper = mount(
       <MemoryRouter initialEntries={[ '/search-requests' ]}>
         <I18nextProvider i18n={i18n}>
@@ -94,6 +96,15 @@ describe("Full component", () => {
       </MemoryRouter>
     );
     expect(wrapper.find(SearchRequests)).toHaveLength(1);
+    wrapper.update()
+
+    //Change language to Spanish
+    wrapper.find('HeaderLanguageDropdown').find('Dropdown').simulate('click')
+    wrapper.find('HeaderLanguageDropdown').find('Dropdown').find('DropdownItem').at(1).simulate('click')
+
+    //Test
+    jest.runAllTimers();
+    expect(wrapper.find('Full').state().lang).toEqual('es')
   });
 
   test('/new-request should redirect to New Request Page', () => {
@@ -121,7 +132,7 @@ describe("Full component", () => {
       </MemoryRouter>
     );
     jest.spyOn(helpers, 'getUserRole');
-    expect(wrapper.find(NewRequest)).toHaveLength(1);
+    expect(wrapper.find(NewRegistrationRequest)).toHaveLength(1);
   });
 
   test('/new-request-finish/id should redirect to New Request Page', () => {
@@ -138,7 +149,7 @@ describe("Full component", () => {
       </MemoryRouter>
     );
     jest.spyOn(helpers, 'getUserRole');
-    expect(wrapper.find(NewRequest)).toHaveLength(1);
+    expect(wrapper.find(NewRegistrationRequest)).toHaveLength(1);
   });
 
   test('/update-registration/id should redirect to Modify Request Page', () => {
@@ -172,7 +183,7 @@ describe("Full component", () => {
       </MemoryRouter>
     );
     jest.spyOn(helpers, 'getUserRole');
-    expect(wrapper.find(DeRegistration)).toHaveLength(1);
+    expect(wrapper.find(NewDeregistrationRequest)).toHaveLength(1);
   });
 
   test('/de-registration-finish/id should redirect to De-registration Page', () => {
@@ -189,7 +200,7 @@ describe("Full component", () => {
       </MemoryRouter>
     );
     jest.spyOn(helpers, 'getUserRole');
-    expect(wrapper.find(DeRegistration)).toHaveLength(1);
+    expect(wrapper.find(NewDeregistrationRequest)).toHaveLength(1);
   });
 
   test('/update-deregistration/id should redirect to Modify De-registration Page', () => {

@@ -54,7 +54,10 @@ class Sidebar extends Component {
     };
 
     // simple wrapper for nav-title item
-    const wrapper = item => { return (item.wrapper && item.wrapper.element ? (React.createElement(item.wrapper.element, item.wrapper.attributes, item.name)): item.name ) };
+    const wrapper = item => {
+      return (item.wrapper && item.wrapper.element
+        ? (React.createElement(item.wrapper.element, item.wrapper.attributes, item.name))
+        : item.name ) };
 
     // nav list section title
     const title =  (title, key) => {
@@ -139,7 +142,7 @@ class Sidebar extends Component {
             <NavItem key={key} className={classes.item}>
               { isExternal(url) ?
                 <RsNavLink href={url} className={classes.link} active>
-                  <i className={classes.icon}></i>{item.name}{badge(item.badge)}
+                  <i className={classes.icon}></i>{t(item.name)}{badge(item.badge)}
                 </RsNavLink>
                 :
                   <div>

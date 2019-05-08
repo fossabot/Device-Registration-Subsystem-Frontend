@@ -12,6 +12,7 @@ NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS 
 
 import React, {Component} from "react";
 import {Creatable} from 'react-select';
+import i18n from './../../i18n'
 import 'react-select/dist/react-select.css';
 
 
@@ -47,6 +48,7 @@ class MultiSelect extends Component {
           onBlur={this.handleBlur}
           value={this.props.value}
           placeholder={this.props.placeholder}
+          noResultsText={i18n.t('noResults')}
         />
         {!!this.props.error &&
         this.props.touched && (
