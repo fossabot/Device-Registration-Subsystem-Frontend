@@ -14,8 +14,17 @@ Neither the name of Qualcomm Technologies, Inc. nor the names of its contributor
 
 NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS LICENSE. THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 ## DRS Front-end
+
+### Documentation
+[DRS-API-Installation-Guide-1.0.0](https://github.com/dirbs/Documentation/blob/master/Device-Registration-Subsystem/DRS-API-Installation-Guide-1.0.0.pdf)<br />
+[DRS-SPA-Installation-Guide-1.0.0.pdf](https://github.com/dirbs/Documentation/blob/master/Device-Registration-Subsystem/DRS-SPA-Installation-Guide-1.0.0.pdf)<br />
+[DRS-Importer-User-Guide-1.0.0.pdf](https://github.com/dirbs/Documentation/blob/master/Device-Registration-Subsystem/DRS-Importer-User-Guide-1.0.0.pdf)<br />
+[DRS-Exporter-User-Guide-1.0.0.pdf](https://github.com/dirbs/Documentation/blob/master/Device-Registration-Subsystem/DRS-Exporter-User-Guide-1.0.0.pdf)<br />
+[DRS-Authority-User-Guide-1.0.0.pdf](https://github.com/dirbs/Documentation/blob/master/Device-Registration-Subsystem/DRS-Authority-User-Guide-1.0.0.pdf)<br />
+
+### Backend Application Repo
+https://github.com/dirbs/Device-Registration-Subsystem
 
 ### Prerequisites
 ```
@@ -35,18 +44,18 @@ Edge 41.16299
 
 ### Setup
 
-##### To Install this code on your local system
+#### To Install this code on your local system
 ```
 cd /path/to/install/location
 git clone https://github.com/dirbs/Device-Registration-Subsystem-Frontend.git
 ```
 
-##### Install dependencies
+#### Install dependencies
 ```
 npm install
 ```
 
-##### APIMan, Keycloak and API Configurations
+#### APIMan, Keycloak and API Configurations
 ```
 cd src/settings.json
 ```
@@ -74,12 +83,12 @@ cd src/settings.json
 
 **Note:** Copy keycloak.json file into public directory. _Refer to KeyCloak documentation._
 
-##### Serve with hot reload (watch changes instantly) at localhost:3000
+#### Serve with hot reload (watch changes instantly) at localhost:3000
 ```
 npm start
 ```
 
-##### Build for production with minification
+#### Build for production with minification
 ```
 npm run build
 ```
