@@ -30,16 +30,14 @@ const historyMock = { push: jest.fn() };
 
 describe('Page401 component', () => {
   test("if renders correctly", () => {
-    const mockLogout = jest.fn();
-    const wrapper = shallow(<Page401 kc={{logout: mockLogout}} userDetails={userDetails}/>);
+    const wrapper = shallow(<Page401 kc={mockKcProps} userDetails={userDetails}/>);
     expect(wrapper).toMatchSnapshot()
   });
   test("if renders correctly again", () => {
-    const mockLogout = jest.fn();
     const wrapper = mount(
       <Router>
         <I18nextProvider i18n={i18n}>
-          <Page401  kc={{logout: mockLogout}} userDetails={userDetails} history={historyMock}/>
+          <Page401  kc={mockKcProps} userDetails={userDetails} history={historyMock}/>
         </I18nextProvider>
       </Router>
     );

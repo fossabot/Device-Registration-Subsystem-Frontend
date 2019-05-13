@@ -6,7 +6,8 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <Translate(Page401)
     kc={
       Object {
-        "logout": [MockFunction],
+        "isTokenExpired": [Function],
+        "logout": [Function],
       }
     }
     userDetails={
@@ -33,7 +34,8 @@ ShallowWrapper {
       "children": [Function],
       "i18n": undefined,
       "kc": Object {
-        "logout": [MockFunction],
+        "isTokenExpired": [Function],
+        "logout": [Function],
       },
       "ns": Array [
         "translations",
@@ -63,7 +65,8 @@ ShallowWrapper {
         "children": [Function],
         "i18n": undefined,
         "kc": Object {
-          "logout": [MockFunction],
+          "isTokenExpired": [Function],
+          "logout": [Function],
         },
         "ns": Array [
           "translations",

@@ -97,7 +97,6 @@
     @include media-breakpoint-down(sm) {
 
       &.dd-itereg {
-        padding-left: 0;
         display: inline-block;
 
         .nav-link {
@@ -132,14 +131,13 @@
 
     &.dropdown-menu-lg {
       width: 290px;
+    }
 
-      @media (min-width: 576px) {
-        transform: none !important;
-        left: auto !important;
-        right: 15px !important;
-        top: 100% !important;
-      }
-
+    @media (min-width: 576px) {
+      transform: none !important;
+      left: auto !important;
+      right: 15px !important;
+      top: 100% !important;
     }
 
   }
@@ -291,7 +289,7 @@ app-root {
       display: none;
       font-size: 1.1rem;
 
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
         display: block;
       }
 
@@ -299,8 +297,72 @@ app-root {
 
     .navbar-brand-full {
 
-      @include media-breakpoint-down(xs) {
+      @include media-breakpoint-down(sm) {
         display: none;
+      }
+
+    }
+
+  }
+
+  .dropdown-toggle {
+
+    &:after {
+      margin-left: 0.45rem;
+    }
+
+  }
+
+  .navbar-nav {
+
+    .dropdown {
+
+      .btn {
+        text-transform: capitalize;
+      }
+
+      .lang-lg,
+      .userpro-lg {
+
+        @media (max-width: 767px) {
+          display: none;
+        }
+
+      }
+
+      .lang-xs,
+      .userpro-xs {
+
+        @media (min-width: 768px) {
+          display: none;
+        }
+
+      }
+
+      .dropdown-menu {
+
+        .userpro-xs {
+          padding: 10px 20px;
+          text-align: center;
+          background: rgba(0, 0, 0, 0.03);
+        }
+
+      }
+
+    }
+
+    .nav-item {
+
+      .dropdown-toggle {
+
+        &:after {
+          margin-left: 0.45rem;
+        }
+
+      }
+
+      .fa-caret-down {
+        margin-left: 0.45rem;
       }
 
     }
@@ -366,6 +428,20 @@ app-root {
 
   &.dropdown-item {
     padding: 0.85rem 0.5rem;
+    background: rgba(0, 0, 0, 0.02);
+  }
+
+  .radio-close {
+    width: 16px;
+    height: 16px;
+    line-height: 0;
+    background: #3f51b5;
+    border: 4px solid #ebecf0;
+    border-radius: 100%;
+    padding: 0;
+    margin: 0;
+    float: right;
+    display: block;
   }
 
   &.unread {
@@ -377,6 +453,7 @@ app-root {
   }
 
   .notifymessage {
+    margin-right: 21px;
 
     p {
       margin: 0;

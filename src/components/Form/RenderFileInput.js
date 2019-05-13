@@ -12,6 +12,7 @@ NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS 
 
 import React, {Component} from "react";
 import {FormGroup, Label} from 'reactstrap';
+import i18n from './../../i18n'
 
 class RenderFileInput extends Component {
   constructor(props) {
@@ -37,12 +38,12 @@ class RenderFileInput extends Component {
     const {error, values, inputClass, inputClassError } = this.props;
     return (
       <FormGroup>
-        <Label className="d-block">{this.props.label} {this.props.requiredStar &&<span className="text-danger">*</span>} {this.props.warningStar && <span className="text-warning">*</span>}</Label>
+        <Label className="d-block">{i18n.t(this.props.label)} {this.props.requiredStar &&<span className="text-danger">*</span>} {this.props.warningStar && <span className="text-warning">*</span>}</Label>
         <div className={(error) ? inputClassError : inputClass}>
           <input type={this.props.type} placeholder={this.props.placeholder} onChange={this.handleChange}
           onBlur={this.handleBlur} ref={ref=> this.fileInput = ref} />
           {!values &&
-             <span className='nofile-selected'>No file selected</span>}
+             <span className='nofile-selected'>{i18n.t('noFileSelected')}</span>}
           {values &&
            <button className="btn btn-link btn-sm text-danger" onClick={this.handleRemoveFile}>
                 <i className="fa fa-close"></i>

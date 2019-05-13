@@ -26,7 +26,8 @@ ShallowWrapper {
         "Showing ",
         <span>
           1
-           to 
+           to
+           
           10
         </span>,
         " of ",
@@ -48,14 +49,16 @@ ShallowWrapper {
         "props": Object {
           "children": Array [
             1,
-            " to ",
+            " to",
+            " ",
             10,
           ],
         },
         "ref": null,
         "rendered": Array [
           1,
-          " to ",
+          " to",
+          " ",
           10,
         ],
         "type": "span",
@@ -87,7 +90,8 @@ ShallowWrapper {
           "Showing ",
           <span>
             1
-             to 
+             to
+             
             10
           </span>,
           " of ",
@@ -109,14 +113,16 @@ ShallowWrapper {
           "props": Object {
             "children": Array [
               1,
-              " to ",
+              " to",
+              " ",
               10,
             ],
           },
           "ref": null,
           "rendered": Array [
             1,
-            " to ",
+            " to",
+            " ",
             10,
           ],
           "type": "span",

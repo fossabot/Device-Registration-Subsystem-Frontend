@@ -12,12 +12,9 @@ NO EXPRESS OR IMPLIED LICENSES TO ANY PARTY'S PATENT RIGHTS ARE GRANTED BY THIS 
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {HashRouter, Route, Switch} from 'react-router-dom';
-import { I18nextProvider } from 'react-i18next';
+import {BrowserRouter, Route} from 'react-router-dom';
+import {I18nextProvider} from 'react-i18next';
 import i18n from './i18n';
-
-// Containers
-import Full from './containers/Full/'
 
 // Styles
 // Import Font Awesome Icons Set
@@ -27,97 +24,13 @@ import './scss/style.scss'
 // Temp fix for reactstrap
 import './scss/core/_dropdown-menu-right.scss'
 
-import {instance, getUserGroups, isPage401, errors} from "./utilities/helpers";
-import {DOCUMENTS, DE_DOCUMENTS, TECHNOLOGIES, STATUS_TYPES, DEVICE_TYPES} from "./utilities/constants"
-import Keycloak from 'keycloak-js';
-import decode from 'jwt-decode'
-import Base64 from 'base-64';
-import Page401 from "./views/Errors/Page401";
-
+import Auth from './Auth'
 import "babel-polyfill";
-let kc = Keycloak('./keycloak.json');
 
-
-kc.init({onLoad: 'login-required'}).success(authenticated => {
-	if (authenticated) {
-		console.log(kc);
-		localStorage.setItem('token', kc.token);
-        let tokenDetails = decode(kc.token)
-	  	let groups = getUserGroups(tokenDetails);
-		var pageStatus = isPage401(groups);
-		if(pageStatus) { // is Page401 then show page401
-			kc.loadUserInfo().success(function (userInfo) {
-					if(localStorage.getItem('isReloaded') === '0' || !localStorage.getItem('isReloaded')) {
-						window.location.reload();
-						localStorage.setItem('isReloaded', '1');
-					} else {
-						ReactDOM.render((
-						  <I18nextProvider i18n={ i18n }>
-							  <HashRouter>
-								<Switch>
-									<Route path="/" render={(props) => <Page401 kc={kc} userDetails={userInfo} {...props} /> } />
-								</Switch>
-							  </HashRouter>
-						  </I18nextProvider>
-						), document.getElementById('root'));
-					}
-				});
-		} else { // User has permission and therefore, allowed to access it.
-			kc.loadUserInfo().success(function (userInfo) {
-				localStorage.setItem('isReloaded', '0');
-				var config = {
-				  headers: {
-					'Authorization': 'Bearer ' + kc.token,
-					'Content-Type': 'application/json'
-				  }
-				}
-				instance.get(`/config/server-config`, config)
-				.then(response => {
-					let data = response.data;
-					if(data.technologies) {
-						data.technologies.map((technology) => (
-							TECHNOLOGIES.push(technology)
-						))
-					}
-					if(data.status_types) {
-						data.status_types.map((status) => (
-							STATUS_TYPES.push(status)
-						))
-					}
-					if(data.device_types) {
-						data.device_types.map((type) => (
-							DEVICE_TYPES.push(type)
-						))
-					}
-					if(data.documents.registration) {
-						data.documents.registration.map((doc) => (
-							DOCUMENTS.push(doc)
-						))
-					}
-					if(data.documents.de_registration) {
-						data.documents.de_registration.map((doc) => (
-							DE_DOCUMENTS.push(doc)
-						))
-					}
-				})
-				.catch(error => {
-					errors(this, error);
-				});
-				localStorage.setItem('userInfo', Base64.encode(JSON.stringify(userInfo)))
-				ReactDOM.render((
-				  <I18nextProvider i18n={ i18n }>
-					  <HashRouter>
-						<Switch>
-							<Route path="/" render={(props) => <Full kc={kc} userDetails={userInfo} resources={tokenDetails} {...props} /> } />
-						</Switch>
-					  </HashRouter>
-				  </I18nextProvider>
-				), document.getElementById('root'));
-			});
-		}
-	} else {
-		kc.login();
-	}
-}).error(function() {
-	alert('Keycloak configuration issue, please refer to Keycloak Documentation');
-});
+ReactDOM.render((
+  <I18nextProvider i18n={i18n}>
+    <BrowserRouter>
+        <Route path="/" component={Auth} />
+    </BrowserRouter>
+  </I18nextProvider>
+), document.getElementById('root'));
