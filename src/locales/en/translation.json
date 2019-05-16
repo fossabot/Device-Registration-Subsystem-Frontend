@@ -67,6 +67,7 @@
   "validation.file.invalid": "Invalid File extension, valid extensions are: ",
   "validation.file.invalid2": "Invalid File extension",
   "validation.file.sizeExceed": "File size exceeds 26 MBs",
+  "validation.langError": "Unsupported Language",
 
   "searchFilters": "Search filters",
   "dateCreated": "Date created",
