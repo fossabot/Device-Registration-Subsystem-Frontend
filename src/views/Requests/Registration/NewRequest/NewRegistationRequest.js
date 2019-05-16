@@ -30,7 +30,7 @@ import {
   ModalBody,
   ModalFooter
 } from 'reactstrap';
-import renderInput from '../../../../components/Form/HOCRenderInput'
+import renderInput from '../../../../components/Form/RenderInput'
 import RenderModal from '../../../../components/Form/RenderModal'
 import doubleEntryInput from '../../../../components/Form/DoubleEntryInput'
 import renderError from '../../../../components/Form/RenderError'
