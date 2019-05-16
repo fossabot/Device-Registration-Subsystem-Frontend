@@ -19,14 +19,20 @@ import {
   STATUS_TYPES,
   DEVICE_TYPES,
   DOCUMENTS,
-  DE_DOCUMENTS
+  DE_DOCUMENTS,
+  ENGLISH_REGEX,
+  SPANISH_REGEX,
+  INDONESIAN_REGEX
 } from './constants';
 import FileSaver from "file-saver";
 import {lastIndexOf, take} from 'ramda'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import i18n from './../i18n'
+import settings from '../settings';
+
 const MySwal = withReactContent(Swal)
+const { defaultLanguage } = settings.appDetails;
 
 export const instance = axios.create({ // API Gateway
   baseURL: BASE_URL, // Dev API
@@ -451,4 +457,12 @@ export function errors(context, error, noToastr = false) {
       })
     }
   }
+}
+
+export function languageCheck(text) {
+  if(ENGLISH_REGEX.test(text) && defaultLanguage==="en"){
+    return true;
+  }else if(SPANISH_REGEX.test(text) && defaultLanguage==="es"){
+    return true;
+  }else return INDONESIAN_REGEX.test(text) && defaultLanguage === "id";
 }
