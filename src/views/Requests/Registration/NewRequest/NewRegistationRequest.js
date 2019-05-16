@@ -30,7 +30,7 @@ import {
   ModalBody,
   ModalFooter
 } from 'reactstrap';
-import renderInput from '../../../../components/Form/RenderInput'
+import renderInput from '../../../../components/Form/HOCRenderInput'
 import RenderModal from '../../../../components/Form/RenderModal'
 import doubleEntryInput from '../../../../components/Form/DoubleEntryInput'
 import renderError from '../../../../components/Form/RenderError'
@@ -46,7 +46,8 @@ import {
   getAuthHeader,
   downloadDocument,
   removeExtension,
-  downloadSampleFile
+  downloadSampleFile,
+  languageCheck
 } from "../../../../utilities/helpers";
 import {
   MANUFACTURE_LOCATIONS,
@@ -419,7 +420,7 @@ class NewRegistrationStep2 extends Component {
                     <Row>
                       <Col xs={12} sm={6}>
                         <Field name="brand" component={renderInput}
-                               label={i18n.t('brand')} placeholder={i18n.t('brand')} type="text" requiredStar/>
+                               label={i18n.t('brand')} placeholder={i18n.t('brand')} type="text" requiredStar  text={values.brand}/>
                       </Col>
                       <Col xs={12} sm={6}>
                         <Field name="model_name" component={renderInput}
@@ -763,11 +764,17 @@ const EnhancedNewRegistrationStep2 = withFormik({
       errors.brand = i18n.t('fieldRequired')
     } else if (values.brand.length >= 1000) {
       errors.brand = i18n.t('validation.maxCharacters')
+    }else if (languageCheck(values.brand) === false){
+      errors.brand = i18n.t('validation.langError')
+      // errors.brand = 'Not supported Lang'
     }
+
     if (!values.model_name) {
       errors.model_name = i18n.t('fieldRequired')
     } else if (values.model_name.length >= 1000) {
       errors.model_name = i18n.t('validation.maxCharacters')
+    }else if (languageCheck(values.model_name) === false){
+      errors.model_name = i18n.t('validation.langError')
     }
     if (!values.model_num) {
       errors.model_num = i18n.t('fieldRequired')
@@ -781,6 +788,8 @@ const EnhancedNewRegistrationStep2 = withFormik({
       errors.operating_system = i18n.t('fieldRequired')
     } else if (values.operating_system.length >= 1000) {
       errors.operating_system = i18n.t('validation.maxCharacters')
+    }else if (languageCheck(values.operating_system) === false){
+      errors.operating_system = i18n.t('validation.langError')
     }
     if (!values.technologies || !values.technologies.length) {
       errors.technologies = i18n.t('validation.technology')

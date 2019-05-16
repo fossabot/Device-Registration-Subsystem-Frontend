@@ -41,7 +41,7 @@ import {
   capitalize,
   getAuthHeader,
   downloadDocument,
-  removeExtension
+  removeExtension, languageCheck
 } from "../../../../utilities/helpers";
 import {
   DE_DOCUMENTS,
@@ -450,6 +450,8 @@ const EnhancedDeRegistrationStep1 = withFormik({
       errors.reason = i18n.t('fieldRequired')
     } else if (values.reason.length >= 1000) {
       errors.reason = i18n.t('validation.maxCharacters')
+    }else if (languageCheck(values.reason) === false){
+      errors.reason = i18n.t('validation.langError')
     }
 
     if (!values.filename) {

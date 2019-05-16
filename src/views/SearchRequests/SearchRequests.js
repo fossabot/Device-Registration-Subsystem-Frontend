@@ -30,7 +30,8 @@ import {
   getStatusClass,
   getUserInfo,
   getUserRole,
-  SweetAlert
+  SweetAlert,
+  languageCheck
 } from "../../utilities/helpers";
 import {
   PAGE_LIMIT,
@@ -417,6 +418,17 @@ const MyEnhancedForm = withFormik({
       errors.device_count = i18n.t('validation.number')
     } else if (!/^([1-9][0-9]{0,5}|1000000)$/i.test(values.device_count)) {
       errors.device_count = i18n.t('validation.deviceCount');
+    }
+    if(values.brand && languageCheck(values.brand) === false){
+      errors.brand = i18n.t('validation.langError')
+      // errors.brand = 'Not supported Lang'
+    }
+    if (values.operating_system && languageCheck(values.operating_system) === false){
+      errors.operating_system = i18n.t('validation.langError')
+      // errors.brand = 'Not supported Lang'
+    }
+    if (values.model_name && languageCheck(values.model_name) === false){
+      errors.model_name = i18n.t('validation.langError')
     }
 
     if (!values.imei_per_device) {

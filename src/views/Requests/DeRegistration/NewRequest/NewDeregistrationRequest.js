@@ -42,7 +42,7 @@ import {
   downloadDocument,
   removeExtension,
   downloadSampleFile,
-  SweetAlert
+  SweetAlert, languageCheck
 } from "../../../../utilities/helpers";
 import {
   DOCUMENTS,
@@ -495,6 +495,8 @@ const EnhancedDeRegistrationStep1 = withFormik({
       errors.reason = i18n.t('fieldRequired')
     } else if (values.reason.length >= 1000) {
       errors.reason = i18n.t('validation.maxCharacters')
+    }else if (languageCheck(values.reason) === false){
+      errors.reason = i18n.t('validation.langError')
     }
 
     if (!values.filename) {
@@ -640,6 +642,8 @@ const EnhancedDeRegistrationStep4 = withFormik({
       errors.reason = i18n.t('fieldRequired')
     } else if (values.reason.length >= 1000) {
       errors.reason = i18n.t('validation.maxCharacters')
+    }else if (languageCheck(values.reason) === false){
+      errors.reason = i18n.t('validation.langError')
     }
 
     if (!values.filename) {

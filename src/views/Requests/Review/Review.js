@@ -21,6 +21,7 @@ import {
   errors,
   getUserInfo,
   getReviewStatus, getUserRole,
+  languageCheck
 } from "../../../utilities/helpers";
 import {
   REVIEW_STEPS
@@ -298,6 +299,9 @@ export const EnhancedForm = withFormik({
     }
     if (values.reviewFeedback === '') {
       errors.reviewFeedback = i18n.t('fieldRequired')
+    }else if (languageCheck(values.reviewFeedback) === false){
+      errors.reviewFeedback = i18n.t('validation.langError')
+      // errors.brand = 'Not supported Lang'
     }
     return errors;
   },

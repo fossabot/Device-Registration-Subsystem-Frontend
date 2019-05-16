@@ -39,7 +39,7 @@ import {
   getUserInfo,
   capitalize,
   getAuthHeader,
-  downloadDocument
+  downloadDocument, languageCheck
 } from "../../../../utilities/helpers";
 import {
   MANUFACTURE_LOCATIONS,
@@ -901,11 +901,15 @@ const EnhancedUpdateRegistrationStep2 = withFormik({
       errors.brand = i18n.t('fieldRequired')
     } else if (values.brand.length >= 1000) {
       errors.brand = i18n.t('validation.maxCharacters')
+    }else if (languageCheck(values.brand) === false){
+      errors.brand = i18n.t('validation.langError')
     }
     if (!values.model_name) {
       errors.model_name = i18n.t('fieldRequired')
     } else if (values.model_name.length >= 1000) {
       errors.model_name = i18n.t('validation.maxCharacters')
+    }else if (languageCheck(values.model_name) === false) {
+      errors.model_name = i18n.t('validation.langError')
     }
     if (!values.model_num) {
       errors.model_num = i18n.t('fieldRequired')
@@ -919,6 +923,8 @@ const EnhancedUpdateRegistrationStep2 = withFormik({
       errors.operating_system = i18n.t('fieldRequired')
     } else if (values.operating_system.length >= 1000) {
       errors.operating_system = i18n.t('validation.maxCharacters')
+    }else if (languageCheck(values.operating_system) === false){
+      errors.operating_system = i18n.t('validation.langError')
     }
     if (!values.technologies || !values.technologies.length) {
       errors.technologies = i18n.t('validation.technology')
