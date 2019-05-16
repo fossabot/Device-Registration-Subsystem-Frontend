@@ -16,7 +16,9 @@ import detector from 'i18next-browser-languagedetector';
 import translationEN from './locales/en/translation.json'
 import translationES from './locales/es/translation.json'
 import translationID from './locales/id/translation.json'
+import settings from './settings';
 
+const  {defaultLanguage} = settings.appDetails;
 i18n
   .use(detector)
   .init({
@@ -28,7 +30,9 @@ i18n
       es: {
         translations: translationES
       },
-      id: translationID
+        id: {
+                translations: translationID
+            }
     },
     fallbackLng: 'en',
     debug: false,
@@ -48,5 +52,5 @@ i18n
       wait: true
     }
   });
-
+i18n.changeLanguage(defaultLanguage);
 export default i18n;
