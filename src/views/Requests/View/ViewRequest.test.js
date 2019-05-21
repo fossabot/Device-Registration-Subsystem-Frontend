@@ -188,7 +188,7 @@ describe("View Request Component", () => {
     afterEach(() => {
       mockAxios.reset();
     });
-    test('if renders correctly', () => {
+   /* test('if renders correctly', () => {
       const wrapper = shallow(
         <ViewRequest/>);
       expect(wrapper).toMatchSnapshot()
@@ -200,7 +200,7 @@ describe("View Request Component", () => {
         </I18nextProvider>
       )
       expect(wrapper).toMatchSnapshot()
-    });
+    });*/
     test('if initial state renders correctly', () => {
       const wrapper = mount(
         <I18nextProvider i18n={i18n}>
