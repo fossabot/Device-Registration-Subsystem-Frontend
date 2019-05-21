@@ -68,6 +68,7 @@
   "validation.file.invalid2": "Extensión de archivo inválida",
   "validation.file.sizeExceed": "El tamaño del archivo supera los 26 MB",
   "validation.langError": "Idioma no soportado",
+  "unprocessibleEntity" : "Entidad no procesable",
 
   "searchFilters": "Filtros de búsqueda",
   "dateCreated": "Fecha de creacion",

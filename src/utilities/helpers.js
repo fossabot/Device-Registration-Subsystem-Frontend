@@ -424,15 +424,16 @@ export function errors(context, error, noToastr = false) {
           type:'error'
         })
       } else if (error.response.status === 422 && !noToastr) {
+        SweetAlert({
+          title: i18n.t('error'),
+          message: i18n.t('unprocessibleEntity'),
+          type:'error'
+        })
         let errors = error.response.data;
         for (let key in errors) {
           if (typeof errors[key][0] === 'object') {
             for (let k in errors[key][0]) {
-              SweetAlert({
-                title: i18n.t('error'),
-                message: k + ' ' + errors[key][0][k],
-                type:'error'
-              })
+
             }
           } else {
             SweetAlert({

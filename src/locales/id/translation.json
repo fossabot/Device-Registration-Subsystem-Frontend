@@ -68,6 +68,7 @@
   "validation.file.invalid2": "Ekstensi file tidak valid",
   "validation.file.sizeExceed": "Ukuran file melebihi 26 MB",
   "validation.langError": "Bahasa tidak didukung",
+  "unprocessibleEntity" : "Entitas yang tidak dapat diproses",
 
   "searchFilters": "Filter pencarian",
   "dateCreated": "Tanggal Diciptakan",
