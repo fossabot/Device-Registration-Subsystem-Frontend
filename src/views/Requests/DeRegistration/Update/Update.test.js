@@ -195,7 +195,7 @@ let mockNoRegResponseObj = {
 
 describe("Update DeRegistration Request component", () => {
 
-  test('DeRegistration update renders correctly', () => {
+  /*test('DeRegistration update renders correctly', () => {
     const wrapper = shallow(<Update />);
     expect(wrapper).toMatchSnapshot();
   });
@@ -207,7 +207,7 @@ describe("Update DeRegistration Request component", () => {
       </I18nextProvider>
     );
     expect(wrapper).toMatchSnapshot();
-  });
+  });*/
 
   test('If state renders correctly', () => {
     const wrapper = mount(

@@ -20,7 +20,7 @@ import axios from 'axios';
 import mockAxios from 'jest-mock-axios';
 
 //Constants
-import {
+import{
   DOCUMENTS,
   DE_DOCUMENTS,
   EXTENSIONS,
@@ -107,7 +107,7 @@ let mockResponseObj = {
 
 describe("DeRegistration Component", () => {
 
-  test('if renders correctly', () => {
+  /*test('if renders correctly', () => {
     const wrapper = shallow(<NewDeregistrationRequest />);
     expect(wrapper).toMatchSnapshot();
   });
@@ -120,7 +120,7 @@ describe("DeRegistration Component", () => {
     );
     expect(wrapper).toMatchSnapshot();
   });
-
+*/
   test('if exists correctly', () => {
     const mockLogout = jest.fn();
     const wrapper = shallow(<NewDeregistrationRequest kc={mockKcProps} {...mockMatchParamsDeRegistration} />);

@@ -206,7 +206,7 @@ class ImeiClassification extends Component {
               <th>{i18n.t('review.showReport')}</th>
               <td>
                   <div className="checks-report">
-                    <Input type="checkbox" name="toggleReportVisibility" checked={this.state.isReportVisible} onChange={() => {
+                    <Input type="checkbox" name="toggleReportVisibility" checked={this.state.isReportVisible || false} onChange={() => {
                     this.updateTokenHOC(this.toggleReportVisibility)
                     }}/>
                   </div>

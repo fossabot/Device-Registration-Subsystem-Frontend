@@ -121,7 +121,7 @@ describe("Review component", () => {
     afterEach(() => {
       mockAxios.reset();
     })
-    test('if renders correctly', () => {
+   /* test('if renders correctly', () => {
       const wrapper = shallow(
         <Review {...mockMatchParams}/>);
       expect(wrapper).toMatchSnapshot()
@@ -133,7 +133,7 @@ describe("Review component", () => {
         </I18nextProvider>
       )
       expect(wrapper).toMatchSnapshot()
-    });
+    });*/
     test('if componentDidMount renders state correctly', () => {
       const wrapper = mount(
         <I18nextProvider i18n={i18n}>
