@@ -15,8 +15,16 @@ import settings from './../settings';
 const {host: apiHost, port: apiPort, version: apiVersion, use: apiUse} = settings.api;
 const {host: apimanHost, port: apimanPort, clientId: apimanClientId, use: apimanUse} = settings.apiman;
 const {appName} = settings.appDetails;
+const {host: kcHost, port:kcPort, version: kcVersion, use: kcUse} = settings.keycloak;
+
+
 
 export let BASE_URL = '';
+export let KC_URL = '';
+
+if(kcUse){
+  KC_URL = `${kcHost}${kcPort ? ':'+ kcPort: ''}${kcVersion}`;
+}
 
 if(apiUse) {
  BASE_URL = `${apiHost}${apiPort ? ':'+ apiPort: ''}${apiVersion}`;
