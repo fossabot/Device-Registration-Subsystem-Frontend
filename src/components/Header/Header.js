@@ -7,6 +7,7 @@ import {
 import i18n from './../../i18n'
 import HeaderDropdown from './HeaderDropdown';
 import HeaderNotifyDropdown from './HeaderNotifyDropdown';
+import HeaderLanguage from './HeaderLanguage';
 
 class Header extends Component {
 
@@ -36,6 +37,7 @@ class Header extends Component {
         <Nav navbar>
           <HeaderNotifyDropdown {...this.props}/>
           <HeaderDropdown {...this.props}/>
+          <HeaderLanguage/>
         </Nav>
       </header>
     );
