@@ -58,6 +58,12 @@ import moment from "moment";
 import { DateRangePicker } from "react-dates";
 import i18n from './../../i18n'
 import {Date_Format} from './../../utilities/constants';
+import idLocale from "moment/locale/id";
+import esLocale from "moment/locale/es";
+
+import settings from '../../settings.json';
+
+const {defaultLanguage} = settings.appDetails;
 
 export default class RenderDateRangePicker extends Component {
   constructor(props) {
@@ -119,6 +125,13 @@ export default class RenderDateRangePicker extends Component {
 
 
   render() {
+    if (defaultLanguage === "id") {
+      moment.updateLocale("id", idLocale);
+    } else if (defaultLanguage === "es") {
+      moment.updateLocale("es", esLocale);
+    } else {
+      moment.locale("en");
+    }
     return (
       <DateRangePicker
         numberOfMonths={2}
