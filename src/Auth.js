@@ -17,7 +17,7 @@ import Base64 from 'base-64';
 import Page401 from "./views/Errors/Page401";
 import settings from './settings.json'
 import {KC_URL} from './utilities/constants';
-import i18n from './i18n'
+import i18n from './i18n';
 
 const { clientId, realm } = settings.keycloak;
 
