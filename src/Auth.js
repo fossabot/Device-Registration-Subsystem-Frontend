@@ -117,7 +117,7 @@ class Auth extends Component {
     }
     return (
       <div className="page-loader">
-       <div className="loading" data-app-name={i18n.t('drs')}>
+        <div className="loading" data-app-name={i18n.t('title')}>
           <div></div>
           <div></div>
           <div></div>
