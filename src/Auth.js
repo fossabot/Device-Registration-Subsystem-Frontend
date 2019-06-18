@@ -17,6 +17,7 @@ import Base64 from 'base-64';
 import Page401 from "./views/Errors/Page401";
 import settings from './settings.json'
 import {KC_URL} from './utilities/constants';
+import i18n from './i18n'
 
 const { clientId, realm } = settings.keycloak;
 
@@ -116,7 +117,7 @@ class Auth extends Component {
     }
     return (
       <div className="page-loader">
-        <div className="loading" data-app-name="Device Registration Subsystem">
+        <div className="loading" data-app-name={i18n.t('title')}>
           <div></div>
           <div></div>
           <div></div>
