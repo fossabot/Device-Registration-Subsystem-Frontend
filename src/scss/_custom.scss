@@ -2376,3 +2376,9 @@ body {
 }
 
 /* dashboard page */
+
+button {
+	&.btn-link {
+		background-color: transparent;
+	}
+}

@@ -335,7 +335,7 @@ const Steps = ({
                   </Card>
                   }
                   <div className="stepBtn_container">
-                    <button onClick={callPrev} className='btn btn-link btn-next-prev'>{t('previous')}</button>
+                    <button color="link" onClick={callPrev} className='btn btn-next-prev'>{t('previous')}</button>
                     <Button color="primary" onClick={jumpToNext} className='btn-next-prev'>{t('next')}</Button>{' '}
                   </div>
                 </Col>
@@ -380,7 +380,7 @@ const Steps = ({
                     </CardBody>
                   </Card>
                   <div className="stepBtn_container">
-                    <button onClick={callPrev} className='btn btn-link btn-next-prev'>{t('previous')}</button>
+                    <button color="link" onClick={callPrev} className='btn btn-next-prev'>{t('previous')}</button>
                     <Button color="primary" onClick={jumpToNext} className='btn-next-prev'>{t('finish')}</Button>{' '}
                   </div>
                 </Col>

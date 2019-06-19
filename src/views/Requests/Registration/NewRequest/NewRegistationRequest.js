@@ -359,13 +359,13 @@ class NewRegistrationStep1 extends Component {
                                         />
                                       </div>
                                     ))}
-                                    <Button type="button" onClick={() => push({imeis})}
+                                    <Button color="outline-primary" type="button" onClick={() => push({imeis})}
                                             size="sm"
                                             className={(
                                               (errors['device_count'] ||
                                                 errors['imei_per_device'] ||
                                                 values.devices.length === parseInt(values.device_count))) ?
-                                              'd-none' : 'btn-outline-primary d-inline-block webpage-add-devices'}>
+                                              'd-none' : 'd-inline-block webpage-add-devices'}>
                                       {i18n.t('addDevice')}
                                     </Button>
                                   </div>
