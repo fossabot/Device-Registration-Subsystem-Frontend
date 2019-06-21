@@ -1,5 +1,6 @@
 {
-  "title": "Bojour",
+  "drs": "Subsistema De Registro De Dispositivos",
+  "title": "Subsistema De Registro De Dispositivos",
   "mainNavigation": "Navegación Principal",
   "homeLink": "Casa",
   "dashboardLink": "Tablero",
@@ -67,6 +68,8 @@
   "validation.file.invalid": "Extensión de archivo no válida, las extensiones válidas son:",
   "validation.file.invalid2": "Extensión de archivo inválida",
   "validation.file.sizeExceed": "El tamaño del archivo supera los 26 MB",
+  "validation.langError": "Idioma no soportado",
+  "unprocessibleEntity" : "Entidad no procesable",
 
   "searchFilters": "Filtros de búsqueda",
   "dateCreated": "Fecha de creacion",
@@ -292,6 +295,7 @@
   "Review": "Revisión",
   "Requests found": "Solicitudes encontradas",
   "Submitted": "Presentado",
+  "language": "Idioma",
 
   "dataInfoTable.showing": "Demostración ",
   "dataInfoTable.to": " a",

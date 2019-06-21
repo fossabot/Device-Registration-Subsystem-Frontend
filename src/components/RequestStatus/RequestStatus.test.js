@@ -15,13 +15,13 @@ const location = {
   }
 };
 describe('RequestStatus Components', ()=> {
-  test("if renders correctly", () => {
+  /*test("if renders correctly", () => {
     const wrapper = shallow(
       <Router>
         <RequestStatus location={location}/>
       </Router>);
     expect(wrapper).toMatchSnapshot();
-  });
+  });*/
 
   test('link should be wrapped in specific class', () => {
     const wrapper = mount(

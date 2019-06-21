@@ -1,4 +1,5 @@
 {
+  "drs": "Device Registration System",
   "title": "Device Registration Subsystem",
   "mainNavigation": "Main navigation",
   "homeLink": "Home",
@@ -67,6 +68,8 @@
   "validation.file.invalid": "Invalid File extension, valid extensions are: ",
   "validation.file.invalid2": "Invalid File extension",
   "validation.file.sizeExceed": "File size exceeds 26 MBs",
+  "validation.langError": "Unsupported Language",
+  "unprocessibleEntity" : "Unprocessible Entity",
 
   "searchFilters": "Search filters",
   "dateCreated": "Date created",
@@ -295,6 +298,7 @@
   "Review": "Review",
   "Requests found": "Requests found",
   "Submitted": "Submitted",
+  "language": "Language",
 
   "dataInfoTable.showing": "Showing ",
   "dataInfoTable.to": " to",

@@ -7,7 +7,7 @@ import {
 import i18n from './../../i18n'
 import HeaderDropdown from './HeaderDropdown';
 import HeaderNotifyDropdown from './HeaderNotifyDropdown';
-import HeaderLanguageDropdown from './HeaderLanguageDropdown'
+import HeaderLanguage from './HeaderLanguage';
 
 class Header extends Component {
 
@@ -35,9 +35,9 @@ class Header extends Component {
           <span className="navbar-toggler-icon"></span>
         </NavbarToggler>
         <Nav navbar>
-          <HeaderLanguageDropdown {...this.props} switchLanguage={this.props.switchLanguage} />
           <HeaderNotifyDropdown {...this.props}/>
           <HeaderDropdown {...this.props}/>
+          <HeaderLanguage/>
         </Nav>
       </header>
     );

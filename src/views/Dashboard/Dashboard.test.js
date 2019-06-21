@@ -31,12 +31,12 @@ describe('Dashboard component', () => {
     // cleaning up the mess left behind the previous test
     mockAxios.reset();
   });
-  test('if renders correctly', () => {
+  /*test('if renders correctly', () => {
     const wrapper = shallow(
       <Dashboard/>);
     expect(wrapper).toMatchSnapshot()
-  })
-  test('if renders correctly again', () => {
+  })*/
+  /*test('if renders correctly again', () => {
     const wrapper = render(
       <Router>
         <I18nextProvider i18n={i18n}>
@@ -45,7 +45,7 @@ describe('Dashboard component', () => {
       </Router>
     )
     expect(wrapper).toMatchSnapshot()
-  });
+  });*/
   describe('When logged in as Reviewer',()=>{
     beforeEach(() => {
       // cleaning up the mess left behind the previous test
