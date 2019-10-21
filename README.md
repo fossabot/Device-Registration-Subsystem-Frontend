@@ -1,4 +1,6 @@
 # DRS Front-end
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FCACF%2FDevice-Registration-Subsystem-Frontend.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2FCACF%2FDevice-Registration-Subsystem-Frontend?ref=badge_shield)
+
 Copyright (c) 2019 Qualcomm Technologies, Inc.
 
 All rights reserved.
@@ -105,3 +107,7 @@ npm start
 ```
 npm run build
 ```
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FCACF%2FDevice-Registration-Subsystem-Frontend.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FCACF%2FDevice-Registration-Subsystem-Frontend?ref=badge_large)
